@@ -11,7 +11,12 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AssignmentsRouteImport } from './routes/assignments'
+import { Route as AssistantRouteImport } from './routes/assistant'
 import { Route as AttendanceRouteImport } from './routes/attendance'
+import { Route as ExamsRouteImport } from './routes/exams'
+import { Route as LinksRouteImport } from './routes/links'
+import { Route as NotesRouteImport } from './routes/notes'
+import { Route as RemindersRouteImport } from './routes/reminders'
 import { Route as TimetableRouteImport } from './routes/timetable'
 
 const IndexRoute = IndexRouteImport.update({
@@ -24,9 +29,34 @@ const AssignmentsRoute = AssignmentsRouteImport.update({
   path: '/assignments',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AssistantRoute = AssistantRouteImport.update({
+  id: '/assistant',
+  path: '/assistant',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AttendanceRoute = AttendanceRouteImport.update({
   id: '/attendance',
   path: '/attendance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExamsRoute = ExamsRouteImport.update({
+  id: '/exams',
+  path: '/exams',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LinksRoute = LinksRouteImport.update({
+  id: '/links',
+  path: '/links',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NotesRoute = NotesRouteImport.update({
+  id: '/notes',
+  path: '/notes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RemindersRoute = RemindersRouteImport.update({
+  id: '/reminders',
+  path: '/reminders',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TimetableRoute = TimetableRouteImport.update({
@@ -38,34 +68,82 @@ const TimetableRoute = TimetableRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/assignments': typeof AssignmentsRoute
+  '/assistant': typeof AssistantRoute
   '/attendance': typeof AttendanceRoute
+  '/exams': typeof ExamsRoute
+  '/links': typeof LinksRoute
+  '/notes': typeof NotesRoute
+  '/reminders': typeof RemindersRoute
   '/timetable': typeof TimetableRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/assignments': typeof AssignmentsRoute
+  '/assistant': typeof AssistantRoute
   '/attendance': typeof AttendanceRoute
+  '/exams': typeof ExamsRoute
+  '/links': typeof LinksRoute
+  '/notes': typeof NotesRoute
+  '/reminders': typeof RemindersRoute
   '/timetable': typeof TimetableRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/assignments': typeof AssignmentsRoute
+  '/assistant': typeof AssistantRoute
   '/attendance': typeof AttendanceRoute
+  '/exams': typeof ExamsRoute
+  '/links': typeof LinksRoute
+  '/notes': typeof NotesRoute
+  '/reminders': typeof RemindersRoute
   '/timetable': typeof TimetableRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/assignments' | '/attendance' | '/timetable'
+  fullPaths:
+    | '/'
+    | '/assignments'
+    | '/assistant'
+    | '/attendance'
+    | '/exams'
+    | '/links'
+    | '/notes'
+    | '/reminders'
+    | '/timetable'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/assignments' | '/attendance' | '/timetable'
-  id: '__root__' | '/' | '/assignments' | '/attendance' | '/timetable'
+  to:
+    | '/'
+    | '/assignments'
+    | '/assistant'
+    | '/attendance'
+    | '/exams'
+    | '/links'
+    | '/notes'
+    | '/reminders'
+    | '/timetable'
+  id:
+    | '__root__'
+    | '/'
+    | '/assignments'
+    | '/assistant'
+    | '/attendance'
+    | '/exams'
+    | '/links'
+    | '/notes'
+    | '/reminders'
+    | '/timetable'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AssignmentsRoute: typeof AssignmentsRoute
+  AssistantRoute: typeof AssistantRoute
   AttendanceRoute: typeof AttendanceRoute
+  ExamsRoute: typeof ExamsRoute
+  LinksRoute: typeof LinksRoute
+  NotesRoute: typeof NotesRoute
+  RemindersRoute: typeof RemindersRoute
   TimetableRoute: typeof TimetableRoute
 }
 
@@ -85,11 +163,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AssignmentsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/assistant': {
+      id: '/assistant'
+      path: '/assistant'
+      fullPath: '/assistant'
+      preLoaderRoute: typeof AssistantRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/attendance': {
       id: '/attendance'
       path: '/attendance'
       fullPath: '/attendance'
       preLoaderRoute: typeof AttendanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/exams': {
+      id: '/exams'
+      path: '/exams'
+      fullPath: '/exams'
+      preLoaderRoute: typeof ExamsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/links': {
+      id: '/links'
+      path: '/links'
+      fullPath: '/links'
+      preLoaderRoute: typeof LinksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/notes': {
+      id: '/notes'
+      path: '/notes'
+      fullPath: '/notes'
+      preLoaderRoute: typeof NotesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reminders': {
+      id: '/reminders'
+      path: '/reminders'
+      fullPath: '/reminders'
+      preLoaderRoute: typeof RemindersRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/timetable': {
@@ -105,7 +218,12 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AssignmentsRoute: AssignmentsRoute,
+  AssistantRoute: AssistantRoute,
   AttendanceRoute: AttendanceRoute,
+  ExamsRoute: ExamsRoute,
+  LinksRoute: LinksRoute,
+  NotesRoute: NotesRoute,
+  RemindersRoute: RemindersRoute,
   TimetableRoute: TimetableRoute,
 }
 export const routeTree = rootRouteImport
