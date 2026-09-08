@@ -66,14 +66,14 @@ function AttendancePage() {
   const all = overall(data.subjects);
   const target = data.target;
 
-  const save = (v: Record<string, string>, id?: string) => {
-    const total = Math.max(0, Number(v.total) || 0);
-    const attended = Math.max(0, Number(v.attended) || 0);
+  const save = (v: (k: string) => string, id?: string) => {
+    const total = Math.max(0, Number(v("total")) || 0);
+    const attended = Math.max(0, Number(v("attended")) || 0);
     if (attended > total) {
       toast.error("Attended classes cannot exceed total classes.");
       return;
     }
-    const payload = { name: v.name.trim(), total, attended };
+    const payload = { name: v("name"), total, attended };
     if (id) {
       subjects.edit(id, payload);
       toast.success("Subject updated");

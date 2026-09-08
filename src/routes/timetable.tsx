@@ -28,16 +28,13 @@ export const Route = createFileRoute("/timetable")({
   component: TimetablePage,
 });
 
-const fields = (subjects: string[]) => [
+const fields = () => [
   { name: "subject", label: "Subject", required: true, placeholder: "Data Structures" },
   { name: "teacher", label: "Teacher", placeholder: "Dr. Rao" },
   { name: "room", label: "Classroom", placeholder: "CS-201" },
   { name: "day", label: "Day", type: "select" as const, options: DAYS, required: true },
   { name: "start", label: "Start time", type: "time" as const, required: true },
   { name: "end", label: "End time", type: "time" as const, required: true },
-  ...(subjects.length
-    ? []
-    : []),
 ];
 
 function TimetablePage() {
@@ -46,26 +43,25 @@ function TimetablePage() {
   const today = dayName();
   const now = currentClass(data.classes);
   const upcoming = nextClass(data.classes);
-  const subjectNames = data.subjects.map((s) => s.name);
 
-  const save = (v: Record<string, string>, id?: string) => {
-    if (v.start >= v.end) {
+  const save = (v: (k: string) => string, id?: string) => {
+    if (v("start") >= v("end")) {
       toast.error("End time must be after start time.");
       return;
     }
     const payload = {
-      subject: v.subject.trim(),
-      teacher: v.teacher?.trim() ?? "",
-      room: v.room?.trim() ?? "",
-      day: v.day as Day,
-      start: v.start,
-      end: v.end,
+      subject: v("subject"),
+      teacher: v("teacher"),
+      room: v("room"),
+      day: v("day") as Day,
+      start: v("start"),
+      end: v("end"),
     };
     if (id) {
       classes.edit(id, payload);
       toast.success("Class updated");
     } else {
-      classes.add({ id: uid(), ...payload } as ClassSlot);
+      classes.add({ id: uid(), completedOn: "", ...payload } as ClassSlot);
       toast.success("Class added");
     }
   };
@@ -96,7 +92,7 @@ function TimetablePage() {
             size="sm"
             variant={done ? "secondary" : "outline"}
             onClick={() => {
-              classes.edit(slot.id, { completedOn: done ? undefined : todayISO() });
+              classes.edit(slot.id, { completedOn: done ? "" : todayISO() });
               toast.success(done ? "Marked as not completed" : "Class marked completed");
             }}
           >
@@ -105,7 +101,7 @@ function TimetablePage() {
           </Button>
           <EntityDialog
             title="Edit class"
-            fields={fields(subjectNames)}
+            fields={fields()}
             initial={{
               subject: slot.subject,
               teacher: slot.teacher,
@@ -145,7 +141,7 @@ function TimetablePage() {
           <EntityDialog
             title="Add class"
             description="Add a subject slot to your weekly schedule."
-            fields={fields(subjectNames)}
+            fields={fields()}
             initial={{ day: today, start: "09:00", end: "10:00" }}
             onSubmit={(v) => save(v)}
             trigger={

@@ -50,14 +50,14 @@ function AssignmentsPage() {
     { name: "description", label: "Description", type: "textarea" },
   ];
 
-  const save = (v: Record<string, string>, id?: string) => {
+  const save = (v: (k: string) => string, id?: string) => {
     const payload = {
-      title: v.title.trim(),
-      subject: v.subject.trim(),
-      description: v.description?.trim() ?? "",
-      due: v.due,
-      priority: v.priority as Priority,
-      status: v.status as Status,
+      title: v("title"),
+      subject: v("subject"),
+      description: v("description"),
+      due: v("due"),
+      priority: v("priority") as Priority,
+      status: v("status") as Status,
     };
     if (id) {
       assignments.edit(id, payload);
