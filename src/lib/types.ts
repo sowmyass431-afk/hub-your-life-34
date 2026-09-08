@@ -25,7 +25,7 @@ export type ClassSlot = {
   day: Day;
   start: string; // "09:00"
   end: string; // "10:00"
-  completedOn?: string; // ISO date string (yyyy-mm-dd)
+  completedOn: string; // ISO date "yyyy-mm-dd" when completed, else ""
 };
 
 export type Subject = {

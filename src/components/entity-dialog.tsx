@@ -47,7 +47,7 @@ export function EntityDialog({
   initial?: Values;
   trigger: ReactNode;
   submitLabel?: string;
-  onSubmit: (values: Values) => void;
+  onSubmit: (get: (key: string) => string) => void;
 }) {
   const [open, setOpen] = useState(false);
   const [values, setValues] = useState<Values>(initial ?? {});
@@ -70,7 +70,7 @@ export function EntityDialog({
         return;
       }
     }
-    onSubmit(values);
+    onSubmit((k) => String(values[k] ?? "").trim());
     setOpen(false);
   };
 
