@@ -4,9 +4,12 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
 } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import type { Json } from "@/integrations/supabase/types";
 import type {
   Assignment,
   ClassSlot,
@@ -106,6 +109,10 @@ const seed: StudentData = {
   ],
 };
 
+function withDefaults(d: Partial<StudentData> | null | undefined): StudentData {
+  return { ...seed, ...(d ?? {}) };
+}
+
 type Ctx = {
   data: StudentData;
   ready: boolean;
@@ -120,20 +127,82 @@ export const uid = () => Math.random().toString(36).slice(2, 10);
 export function StoreProvider({ children }: { children: ReactNode }) {
   const [data, setData] = useState<StudentData>(seed);
   const [ready, setReady] = useState(false);
+  const userIdRef = useRef<string | null>(null);
+  const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  // Load the signed-in user's data from the cloud; migrate any local data on
+  // first sign-in.
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem(KEY);
-      if (raw) setData({ ...seed, ...(JSON.parse(raw) as StudentData) });
-    } catch {
-      /* ignore corrupt storage */
-    }
-    setReady(true);
+    let active = true;
+
+    const load = async (userId: string) => {
+      const { data: row } = await supabase
+        .from("user_data")
+        .select("data")
+        .eq("user_id", userId)
+        .maybeSingle();
+      if (!active) return;
+
+      const cloud = row?.data as Partial<StudentData> | null;
+      if (cloud && Object.keys(cloud).length > 0) {
+        setData(withDefaults(cloud));
+      } else {
+        // First sign-in on this account: carry over anything saved locally.
+        let migrated = seed;
+        try {
+          const raw = localStorage.getItem(KEY);
+          if (raw) migrated = withDefaults(JSON.parse(raw) as Partial<StudentData>);
+        } catch {
+          /* ignore corrupt storage */
+        }
+        setData(migrated);
+        await supabase.from("user_data").upsert({
+          user_id: userId,
+          data: migrated as unknown as Json,
+          updated_at: new Date().toISOString(),
+        });
+        localStorage.removeItem(KEY);
+      }
+      userIdRef.current = userId;
+      setReady(true);
+    };
+
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      if (user) void load(user.id);
+      else setReady(true);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "SIGNED_IN" && session?.user) void load(session.user.id);
+      if (event === "SIGNED_OUT") {
+        userIdRef.current = null;
+        setData(seed);
+      }
+    });
+
+    return () => {
+      active = false;
+      subscription.unsubscribe();
+    };
   }, []);
 
+  // Debounced save to the cloud on every change.
   useEffect(() => {
-    if (!ready) return;
-    localStorage.setItem(KEY, JSON.stringify(data));
+    const userId = userIdRef.current;
+    if (!ready || !userId) return;
+    if (saveTimer.current) clearTimeout(saveTimer.current);
+    saveTimer.current = setTimeout(() => {
+      void supabase.from("user_data").upsert({
+        user_id: userId,
+        data: data as unknown as Json,
+        updated_at: new Date().toISOString(),
+      });
+    }, 600);
+    return () => {
+      if (saveTimer.current) clearTimeout(saveTimer.current);
+    };
   }, [data, ready]);
 
   const update = useCallback((fn: (d: StudentData) => StudentData) => {
