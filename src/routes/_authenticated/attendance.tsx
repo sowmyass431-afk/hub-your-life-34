@@ -27,7 +27,7 @@ import {
   status,
 } from "@/lib/attendance";
 
-export const Route = createFileRoute("/attendance")({
+export const Route = createFileRoute("/_authenticated/attendance")({
   head: () => ({
     meta: [
       { title: "Attendance Tracker — Student Hub" },

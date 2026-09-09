@@ -7,7 +7,7 @@ import { Empty, PageHeader, StatusPill } from "@/components/shell";
 import { uid, useCollections } from "@/lib/store";
 import type { LinkItem } from "@/lib/types";
 
-export const Route = createFileRoute("/links")({
+export const Route = createFileRoute("/_authenticated/links")({
   head: () => ({
     meta: [
       { title: "Important Links — Student Hub" },

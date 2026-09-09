@@ -9,7 +9,7 @@ import { uid, useCollections } from "@/lib/store";
 import type { Assignment, Priority, Status } from "@/lib/types";
 import { daysUntil, prettyDate, todayISO } from "@/lib/time";
 
-export const Route = createFileRoute("/assignments")({
+export const Route = createFileRoute("/_authenticated/assignments")({
   head: () => ({
     meta: [
       { title: "Assignments & Tasks — Student Hub" },

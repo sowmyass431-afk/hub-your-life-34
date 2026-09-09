@@ -9,7 +9,7 @@ import { Empty, PageHeader } from "@/components/shell";
 import { uid, useCollections } from "@/lib/store";
 import type { Note } from "@/lib/types";
 
-export const Route = createFileRoute("/notes")({
+export const Route = createFileRoute("/_authenticated/notes")({
   head: () => ({
     meta: [
       { title: "Study Notes — Student Hub" },

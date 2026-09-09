@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import {
   BookOpen,
   CalendarDays,
@@ -6,6 +6,7 @@ import {
   GraduationCap,
   LayoutDashboard,
   Link2,
+  LogOut,
   Menu,
   NotebookPen,
   PercentCircle,
@@ -13,7 +14,29 @@ import {
   X,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
+import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
+
+function SignOutButton({ className }: { className?: string }) {
+  const navigate = useNavigate();
+  return (
+    <button
+      onClick={async () => {
+        await supabase.auth.signOut();
+        toast.success("Signed out");
+        navigate({ to: "/auth", replace: true });
+      }}
+      className={cn(
+        "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground",
+        className,
+      )}
+    >
+      <LogOut className="size-4 shrink-0" />
+      Sign out
+    </button>
+  );
+}
 
 const NAV = [
   { to: "/", label: "Dashboard", icon: LayoutDashboard },
@@ -49,6 +72,10 @@ function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
 
 export function Shell({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+
+  // The sign-in page renders without the app chrome.
+  if (pathname === "/auth") return <>{children}</>;
 
   return (
     <div className="min-h-screen lg:flex">
@@ -57,7 +84,10 @@ export function Shell({ children }: { children: ReactNode }) {
         <div className="mt-6 flex-1 overflow-y-auto">
           <NavLinks />
         </div>
-        <p className="pt-4 text-xs text-muted-foreground">Saved on this device</p>
+        <div className="border-t border-border pt-2">
+          <SignOutButton />
+          <p className="px-3 pt-2 text-xs text-muted-foreground">Synced to your account</p>
+        </div>
       </aside>
 
       <div className="flex min-w-0 flex-1 flex-col">
