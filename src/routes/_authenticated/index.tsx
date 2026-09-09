@@ -239,7 +239,7 @@ function StatCard({
   icon: React.ReactNode;
   label: string;
   value: string;
-  alert?: string;
+  alert?: string | undefined;
 }) {
   return (
     <div className="surface p-4">
