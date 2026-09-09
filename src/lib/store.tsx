@@ -32,6 +32,7 @@ const seed: StudentData = {
       day: "Monday",
       start: "09:00",
       end: "10:00",
+      completedOn: "",
     },
     {
       id: "c2",
@@ -41,6 +42,7 @@ const seed: StudentData = {
       day: "Monday",
       start: "10:15",
       end: "11:15",
+      completedOn: "",
     },
     {
       id: "c3",
@@ -50,6 +52,7 @@ const seed: StudentData = {
       day: "Tuesday",
       start: "11:30",
       end: "13:00",
+      completedOn: "",
     },
     {
       id: "c4",
@@ -59,6 +62,7 @@ const seed: StudentData = {
       day: "Wednesday",
       start: "09:00",
       end: "10:00",
+      completedOn: "",
     },
     {
       id: "c5",
@@ -68,6 +72,7 @@ const seed: StudentData = {
       day: "Thursday",
       start: "14:00",
       end: "15:00",
+      completedOn: "",
     },
     {
       id: "c6",
@@ -77,6 +82,7 @@ const seed: StudentData = {
       day: "Friday",
       start: "10:15",
       end: "11:45",
+      completedOn: "",
     },
   ],
   subjects: [
