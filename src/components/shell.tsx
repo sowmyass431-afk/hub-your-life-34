@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import {
   BookOpen,
   CalendarDays,
@@ -6,6 +6,7 @@ import {
   GraduationCap,
   LayoutDashboard,
   Link2,
+  LogOut,
   Menu,
   NotebookPen,
   PercentCircle,
@@ -13,7 +14,29 @@ import {
   X,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
+import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
+
+function SignOutButton({ className }: { className?: string }) {
+  const navigate = useNavigate();
+  return (
+    <button
+      onClick={async () => {
+        await supabase.auth.signOut();
+        toast.success("Signed out");
+        navigate({ to: "/auth", replace: true });
+      }}
+      className={cn(
+        "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground",
+        className,
+      )}
+    >
+      <LogOut className="size-4 shrink-0" />
+      Sign out
+    </button>
+  );
+}
 
 const NAV = [
   { to: "/", label: "Dashboard", icon: LayoutDashboard },
