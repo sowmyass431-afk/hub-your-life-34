@@ -11,7 +11,7 @@ import { useStore } from "@/lib/store";
 import { overall, percent, status } from "@/lib/attendance";
 import { nextClass, todayISO } from "@/lib/time";
 
-export const Route = createFileRoute("/assistant")({
+export const Route = createFileRoute("/_authenticated/assistant")({
   head: () => ({
     meta: [
       { title: "AI Study Assistant — Student Hub" },

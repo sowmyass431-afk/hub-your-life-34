@@ -8,7 +8,7 @@ import { uid, useCollections } from "@/lib/store";
 import type { Exam } from "@/lib/types";
 import { daysUntil, fmtTime, prettyDate, todayISO } from "@/lib/time";
 
-export const Route = createFileRoute("/exams")({
+export const Route = createFileRoute("/_authenticated/exams")({
   head: () => ({
     meta: [
       { title: "Exam Schedule — Student Hub" },

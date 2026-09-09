@@ -9,7 +9,7 @@ import { uid, useCollections } from "@/lib/store";
 import type { Reminder } from "@/lib/types";
 import { fmtTime, prettyDate, todayISO } from "@/lib/time";
 
-export const Route = createFileRoute("/reminders")({
+export const Route = createFileRoute("/_authenticated/reminders")({
   head: () => ({
     meta: [
       { title: "Reminders — Student Hub" },

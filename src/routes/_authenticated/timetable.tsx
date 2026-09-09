@@ -10,7 +10,7 @@ import { uid, useCollections } from "@/lib/store";
 import { DAYS, type ClassSlot, type Day } from "@/lib/types";
 import { classesFor, currentClass, dayName, fmtTime, nextClass, todayISO } from "@/lib/time";
 
-export const Route = createFileRoute("/timetable")({
+export const Route = createFileRoute("/_authenticated/timetable")({
   head: () => ({
     meta: [
       { title: "Weekly Timetable — Student Hub" },
