@@ -9,100 +9,100 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as AssignmentsRouteImport } from './routes/assignments'
-import { Route as AssistantRouteImport } from './routes/assistant'
-import { Route as AttendanceRouteImport } from './routes/attendance'
-import { Route as ExamsRouteImport } from './routes/exams'
-import { Route as LinksRouteImport } from './routes/links'
-import { Route as NotesRouteImport } from './routes/notes'
-import { Route as RemindersRouteImport } from './routes/reminders'
-import { Route as TimetableRouteImport } from './routes/timetable'
+import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
+import { Route as AuthenticatedAssignmentsRouteImport } from './routes/_authenticated/assignments'
+import { Route as AuthenticatedAssistantRouteImport } from './routes/_authenticated/assistant'
+import { Route as AuthenticatedAttendanceRouteImport } from './routes/_authenticated/attendance'
+import { Route as AuthenticatedExamsRouteImport } from './routes/_authenticated/exams'
+import { Route as AuthenticatedLinksRouteImport } from './routes/_authenticated/links'
+import { Route as AuthenticatedNotesRouteImport } from './routes/_authenticated/notes'
+import { Route as AuthenticatedRemindersRouteImport } from './routes/_authenticated/reminders'
+import { Route as AuthenticatedTimetableRouteImport } from './routes/_authenticated/timetable'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
+const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
+  id: '/_authenticated/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AssignmentsRoute = AssignmentsRouteImport.update({
-  id: '/assignments',
-  path: '/assignments',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AssistantRoute = AssistantRouteImport.update({
-  id: '/assistant',
+const AuthenticatedAssignmentsRoute =
+  AuthenticatedAssignmentsRouteImport.update({
+    id: '/_authenticated/assignments',
+    path: '/assignments',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AuthenticatedAssistantRoute = AuthenticatedAssistantRouteImport.update({
+  id: '/_authenticated/assistant',
   path: '/assistant',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AttendanceRoute = AttendanceRouteImport.update({
-  id: '/attendance',
+const AuthenticatedAttendanceRoute = AuthenticatedAttendanceRouteImport.update({
+  id: '/_authenticated/attendance',
   path: '/attendance',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ExamsRoute = ExamsRouteImport.update({
-  id: '/exams',
+const AuthenticatedExamsRoute = AuthenticatedExamsRouteImport.update({
+  id: '/_authenticated/exams',
   path: '/exams',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LinksRoute = LinksRouteImport.update({
-  id: '/links',
+const AuthenticatedLinksRoute = AuthenticatedLinksRouteImport.update({
+  id: '/_authenticated/links',
   path: '/links',
   getParentRoute: () => rootRouteImport,
 } as any)
-const NotesRoute = NotesRouteImport.update({
-  id: '/notes',
+const AuthenticatedNotesRoute = AuthenticatedNotesRouteImport.update({
+  id: '/_authenticated/notes',
   path: '/notes',
   getParentRoute: () => rootRouteImport,
 } as any)
-const RemindersRoute = RemindersRouteImport.update({
-  id: '/reminders',
+const AuthenticatedRemindersRoute = AuthenticatedRemindersRouteImport.update({
+  id: '/_authenticated/reminders',
   path: '/reminders',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TimetableRoute = TimetableRouteImport.update({
-  id: '/timetable',
+const AuthenticatedTimetableRoute = AuthenticatedTimetableRouteImport.update({
+  id: '/_authenticated/timetable',
   path: '/timetable',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/assignments': typeof AssignmentsRoute
-  '/assistant': typeof AssistantRoute
-  '/attendance': typeof AttendanceRoute
-  '/exams': typeof ExamsRoute
-  '/links': typeof LinksRoute
-  '/notes': typeof NotesRoute
-  '/reminders': typeof RemindersRoute
-  '/timetable': typeof TimetableRoute
+  '/assignments': typeof AuthenticatedAssignmentsRoute
+  '/assistant': typeof AuthenticatedAssistantRoute
+  '/attendance': typeof AuthenticatedAttendanceRoute
+  '/exams': typeof AuthenticatedExamsRoute
+  '/links': typeof AuthenticatedLinksRoute
+  '/notes': typeof AuthenticatedNotesRoute
+  '/reminders': typeof AuthenticatedRemindersRoute
+  '/timetable': typeof AuthenticatedTimetableRoute
+  '/': typeof AuthenticatedIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/assignments': typeof AssignmentsRoute
-  '/assistant': typeof AssistantRoute
-  '/attendance': typeof AttendanceRoute
-  '/exams': typeof ExamsRoute
-  '/links': typeof LinksRoute
-  '/notes': typeof NotesRoute
-  '/reminders': typeof RemindersRoute
-  '/timetable': typeof TimetableRoute
+  '/assignments': typeof AuthenticatedAssignmentsRoute
+  '/assistant': typeof AuthenticatedAssistantRoute
+  '/attendance': typeof AuthenticatedAttendanceRoute
+  '/exams': typeof AuthenticatedExamsRoute
+  '/links': typeof AuthenticatedLinksRoute
+  '/notes': typeof AuthenticatedNotesRoute
+  '/reminders': typeof AuthenticatedRemindersRoute
+  '/timetable': typeof AuthenticatedTimetableRoute
+  '/': typeof AuthenticatedIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/assignments': typeof AssignmentsRoute
-  '/assistant': typeof AssistantRoute
-  '/attendance': typeof AttendanceRoute
-  '/exams': typeof ExamsRoute
-  '/links': typeof LinksRoute
-  '/notes': typeof NotesRoute
-  '/reminders': typeof RemindersRoute
-  '/timetable': typeof TimetableRoute
+  '/_authenticated/assignments': typeof AuthenticatedAssignmentsRoute
+  '/_authenticated/assistant': typeof AuthenticatedAssistantRoute
+  '/_authenticated/attendance': typeof AuthenticatedAttendanceRoute
+  '/_authenticated/exams': typeof AuthenticatedExamsRoute
+  '/_authenticated/links': typeof AuthenticatedLinksRoute
+  '/_authenticated/notes': typeof AuthenticatedNotesRoute
+  '/_authenticated/reminders': typeof AuthenticatedRemindersRoute
+  '/_authenticated/timetable': typeof AuthenticatedTimetableRoute
+  '/_authenticated/': typeof AuthenticatedIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
     | '/assignments'
     | '/assistant'
     | '/attendance'
@@ -111,9 +111,9 @@ export interface FileRouteTypes {
     | '/notes'
     | '/reminders'
     | '/timetable'
+    | '/'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
     | '/assignments'
     | '/assistant'
     | '/attendance'
@@ -122,109 +122,110 @@ export interface FileRouteTypes {
     | '/notes'
     | '/reminders'
     | '/timetable'
+    | '/'
   id:
     | '__root__'
-    | '/'
-    | '/assignments'
-    | '/assistant'
-    | '/attendance'
-    | '/exams'
-    | '/links'
-    | '/notes'
-    | '/reminders'
-    | '/timetable'
+    | '/_authenticated/assignments'
+    | '/_authenticated/assistant'
+    | '/_authenticated/attendance'
+    | '/_authenticated/exams'
+    | '/_authenticated/links'
+    | '/_authenticated/notes'
+    | '/_authenticated/reminders'
+    | '/_authenticated/timetable'
+    | '/_authenticated/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AssignmentsRoute: typeof AssignmentsRoute
-  AssistantRoute: typeof AssistantRoute
-  AttendanceRoute: typeof AttendanceRoute
-  ExamsRoute: typeof ExamsRoute
-  LinksRoute: typeof LinksRoute
-  NotesRoute: typeof NotesRoute
-  RemindersRoute: typeof RemindersRoute
-  TimetableRoute: typeof TimetableRoute
+  AuthenticatedAssignmentsRoute: typeof AuthenticatedAssignmentsRoute
+  AuthenticatedAssistantRoute: typeof AuthenticatedAssistantRoute
+  AuthenticatedAttendanceRoute: typeof AuthenticatedAttendanceRoute
+  AuthenticatedExamsRoute: typeof AuthenticatedExamsRoute
+  AuthenticatedLinksRoute: typeof AuthenticatedLinksRoute
+  AuthenticatedNotesRoute: typeof AuthenticatedNotesRoute
+  AuthenticatedRemindersRoute: typeof AuthenticatedRemindersRoute
+  AuthenticatedTimetableRoute: typeof AuthenticatedTimetableRoute
+  AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
+    '/_authenticated/': {
+      id: '/_authenticated/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+      preLoaderRoute: typeof AuthenticatedIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/assignments': {
-      id: '/assignments'
+    '/_authenticated/assignments': {
+      id: '/_authenticated/assignments'
       path: '/assignments'
       fullPath: '/assignments'
-      preLoaderRoute: typeof AssignmentsRouteImport
+      preLoaderRoute: typeof AuthenticatedAssignmentsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/assistant': {
-      id: '/assistant'
+    '/_authenticated/assistant': {
+      id: '/_authenticated/assistant'
       path: '/assistant'
       fullPath: '/assistant'
-      preLoaderRoute: typeof AssistantRouteImport
+      preLoaderRoute: typeof AuthenticatedAssistantRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/attendance': {
-      id: '/attendance'
+    '/_authenticated/attendance': {
+      id: '/_authenticated/attendance'
       path: '/attendance'
       fullPath: '/attendance'
-      preLoaderRoute: typeof AttendanceRouteImport
+      preLoaderRoute: typeof AuthenticatedAttendanceRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/exams': {
-      id: '/exams'
+    '/_authenticated/exams': {
+      id: '/_authenticated/exams'
       path: '/exams'
       fullPath: '/exams'
-      preLoaderRoute: typeof ExamsRouteImport
+      preLoaderRoute: typeof AuthenticatedExamsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/links': {
-      id: '/links'
+    '/_authenticated/links': {
+      id: '/_authenticated/links'
       path: '/links'
       fullPath: '/links'
-      preLoaderRoute: typeof LinksRouteImport
+      preLoaderRoute: typeof AuthenticatedLinksRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/notes': {
-      id: '/notes'
+    '/_authenticated/notes': {
+      id: '/_authenticated/notes'
       path: '/notes'
       fullPath: '/notes'
-      preLoaderRoute: typeof NotesRouteImport
+      preLoaderRoute: typeof AuthenticatedNotesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/reminders': {
-      id: '/reminders'
+    '/_authenticated/reminders': {
+      id: '/_authenticated/reminders'
       path: '/reminders'
       fullPath: '/reminders'
-      preLoaderRoute: typeof RemindersRouteImport
+      preLoaderRoute: typeof AuthenticatedRemindersRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/timetable': {
-      id: '/timetable'
+    '/_authenticated/timetable': {
+      id: '/_authenticated/timetable'
       path: '/timetable'
       fullPath: '/timetable'
-      preLoaderRoute: typeof TimetableRouteImport
+      preLoaderRoute: typeof AuthenticatedTimetableRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  AssignmentsRoute: AssignmentsRoute,
-  AssistantRoute: AssistantRoute,
-  AttendanceRoute: AttendanceRoute,
-  ExamsRoute: ExamsRoute,
-  LinksRoute: LinksRoute,
-  NotesRoute: NotesRoute,
-  RemindersRoute: RemindersRoute,
-  TimetableRoute: TimetableRoute,
+  AuthenticatedAssignmentsRoute: AuthenticatedAssignmentsRoute,
+  AuthenticatedAssistantRoute: AuthenticatedAssistantRoute,
+  AuthenticatedAttendanceRoute: AuthenticatedAttendanceRoute,
+  AuthenticatedExamsRoute: AuthenticatedExamsRoute,
+  AuthenticatedLinksRoute: AuthenticatedLinksRoute,
+  AuthenticatedNotesRoute: AuthenticatedNotesRoute,
+  AuthenticatedRemindersRoute: AuthenticatedRemindersRoute,
+  AuthenticatedTimetableRoute: AuthenticatedTimetableRoute,
+  AuthenticatedIndexRoute: AuthenticatedIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
